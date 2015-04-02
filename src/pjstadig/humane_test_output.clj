@@ -30,14 +30,8 @@
          (when (seq *testing-contexts*) (println (testing-contexts-str)))
          (when message (println message))
          (binding [*out* (pp/get-pretty-writer *out*)]
-           (let [print-expected (fn [actual]
-                                  (print "expected: ")
-                                  (pp/pprint expected)
-                                  (print "  actual: ")
-                                  (pp/pprint actual))]
-             (if (seq diffs)
+           (if (seq diffs)
                (doseq [[actual [a b]] diffs]
-                 (print-expected actual)
                  (print "    diff:")
                  (if a
                    (do (print " - ")
@@ -45,8 +39,7 @@
                        (print "          + "))
                    (print " + "))
                  (when b
-                   (pp/pprint b)))
-               (print-expected actual))))))
+                   (pp/pprint b)))))))
      ;; this code is just yanked from clojure.pprint
      (defmethod pp/simple-dispatch clojure.lang.IRecord [arec]
        (pp/pprint-logical-block
